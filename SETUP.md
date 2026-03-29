@@ -6,9 +6,12 @@ gitでクローン後、以下の手順を順番に実施してください。
 
 ## 1. npm パッケージのインストール
 
+プロジェクトのルートディレクトリで実行してください。
+
 ```bash
 cd _gulp
 npm i
+cd ..
 ```
 
 ---
@@ -24,33 +27,40 @@ chmod +x zip-convert.sh
 
 ---
 
-## 3. エイリアスを設定
+## 3. シンボリックリンクを作成
 
-`~/.zshrc` に以下を追記してください。
-※ パスはクローンした場所に合わせて変更してください。
+クローンした場所のパスに合わせて実行してください。
 
 ```bash
-# WebP変換スクリプトのエイリアス
-alias webp-convert="<クローン先のパス>/webp-convert.sh"
-
-# ZIP変換スクリプトのエイリアス
-alias zip-convert="<クローン先のパス>/zip-convert.sh"
+ln -sf /Users/<ユーザー名>/<クローン先のパス>/webp-convert.sh /usr/local/bin/webp-convert
+ln -sf /Users/<ユーザー名>/<クローン先のパス>/zip-convert.sh /usr/local/bin/zip-convert
 ```
 
-**例（デスクトップにクローンした場合）:**
+**例（デスクトップの `app` フォルダにクローンした場合）:**
 ```bash
-alias webp-convert="/Users/<ユーザー名>/Desktop/app/gulp-zip-webp/webp-convert.sh"
-alias zip-convert="/Users/<ユーザー名>/Desktop/app/gulp-zip-webp/zip-convert.sh"
+ln -sf /Users/<ユーザー名>/Desktop/app/gulp-zip-webp/webp-convert.sh /usr/local/bin/webp-convert
+ln -sf /Users/<ユーザー名>/Desktop/app/gulp-zip-webp/zip-convert.sh /usr/local/bin/zip-convert
 ```
 
-追記後、設定を反映します：
+ユーザー名は以下で確認できます：
 ```bash
-source ~/.zshrc
+whoami
 ```
 
 ---
 
 ## 4. 動作確認
+
+```bash
+which webp-convert
+which zip-convert
+```
+
+それぞれ `/usr/local/bin/webp-convert`、`/usr/local/bin/zip-convert` と表示されれば成功です。
+
+---
+
+## 各スクリプトの使い方
 
 ```bash
 # WebP変換（ファイル指定）
@@ -62,10 +72,6 @@ webp-convert ~/Downloads/sample-folder/
 # ZIP変換（フォルダ指定）
 zip-convert ~/Downloads/sample-folder/
 ```
-
----
-
-## 各スクリプトの概要
 
 | スクリプト | 入力 | 出力先 |
 |---|---|---|
