@@ -5,7 +5,12 @@
 
 set -e
 
-GULP_DIR="$(cd "$(dirname "$0")" && pwd)"
+# シンボリックリンク経由で実行された場合も実際のスクリプトのディレクトリを取得
+SELF="$0"
+if [ -L "$SELF" ]; then
+  SELF="$(readlink "$SELF")"
+fi
+GULP_DIR="$(cd "$(dirname "$SELF")" && pwd)"
 ZIP_DIR="$GULP_DIR/zip"
 DIST_DIR="$GULP_DIR/dist-zip"
 DOWNLOADS_DIR="$HOME/Downloads"
